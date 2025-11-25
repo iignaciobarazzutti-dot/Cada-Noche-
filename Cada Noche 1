@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Ti, Mi Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Patrick+Hand&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-sky-top: #050611;
+            --dark-sky-bottom: #161938;
+            --grass-back: #0a1f11;
+            --grass-front: #14361e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--dark-sky-top), var(--dark-sky-bottom));
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        /* --- Canvas para estrellas (fijas y fugaces) --- */
+        #skyCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* --- Nubes Suaves --- */
+        .cloud-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 60%;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03); /* Muy transparente */
+            border-radius: 50%;
+            filter: blur(25px); /* Efecto difuso */
+            animation: floatCloud linear infinite;
+        }
+
+        /* --- La Luna --- */
+        .moon {
+            position: absolute;
+            top: 50px; right: 40px;
+            width: 70px; height: 70px;
+            background: #fdfd96;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #fdfd96, 0 0 90px rgba(253, 253, 150, 0.3);
+            z-index: 3;
+            animation: moonFloat 12s infinite ease-in-out alternate;
+        }
+
+        /* --- Campo y Flores --- */
+        .field {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40vh; /* Campo más alto */
+            background: linear-gradient(to bottom, var(--grass-back), var(--grass-front));
+            border-radius: 60% 60% 0 0 / 25px 25px 0 0;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .flower {
+            position: absolute;
+            transform-origin: bottom center;
+            animation: sway 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        /* Estilos SVG de flores */
+        .flower svg {
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.6));
+        }
+
+        /* --- UI Principal --- */
+        .ui-container {
+            position: absolute;
+            top: 45%; /* Un poco más arriba para dejar ver el campo */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 550px;
+            z-index: 20;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Reloj */
+        .clock-container {
+            /* Fondo aún más sutil */
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(3px);
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+        }
+
+        #clock {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 3rem;
+            color: #e0f7fa;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
+            letter-spacing: 2px;
+        }
+
+        .date-display {
+            font-family: 'Share Tech Mono', monospace;
+            color: #81d4fa;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Mensaje de Buenas Noches */
+        .message-box {
+            /* Hecho más transparente (aprox 5% opacidad blanca) */
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color:
+
+
